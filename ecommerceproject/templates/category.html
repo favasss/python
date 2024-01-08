@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{category.description|truncatewords:155}}
+    {% else %}
+        Welcome to ShopeeSnapy where you can purchase all your needs...
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}}--- ShopeeSnapy
+    {% else %}
+        See our new collections---ShopeeSnapy
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if category %}
+        <div>
+            <div>
+                <p><a href="{% url 'shop:allProdCat' %}">Our Product Collections</a></p>
+            </div>
+        </div>
+    {% endif %}
+    <div>
+        {% if category %}
+        <img src="{{category.image.url}}" alt="{{category.name}}">
+    </div>
+    <br>
+    <div>
+        <h1>{{category.name}}</h1>
+        <p>{{category.description}}</p>
+    </div>
+        {% else %}
+    <div>
+        <img src="{% static 'img/banner.png' %}'" alt="Our Products">
+    </div>
+    <br>
+    <div>
+        <h1> Our Product Collections</h1>
+        <p>...........................</p>
+    </div>
+        {% endif %}
+    <div>
+        <div>
+            {% for product in products %}
+            <div>
+                <div>
+                    <a href="{{product.get_url}}"> <img src="{{product.image.url}}" alt="{{product.name}}"></a>
+                <div>
+                    <h4></h4>
+                    <p></p>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
